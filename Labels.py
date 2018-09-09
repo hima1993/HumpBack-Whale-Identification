@@ -123,11 +123,11 @@ decoded = Conv2D(1,(3,3),activation='sigmoid',padding='same')(x)
 ##print("...................")
 ##print(num_gpu)
 
-##os.environ["CUDA_VISIBLE_DEVICES"] = "0,2"
+os.environ["CUDA_VISIBLE_DEVICES"] = "0,2"
 autoencoder = Model(input_img,decoded)
 ot = keras.optimizers.Adam(lr=0.5,beta_1=0.9,beta_2=0.999,epsilon=None,decay=0.95,amsgrad = False)
 epochsnum =20
-##autoencoder = multi_gpu_model(autoencoder,gpus = 2)
+autoencoder = multi_gpu_model(autoencoder,gpus = 2)
 autoencoder.compile(optimizer = ot,loss="mean_squared_error")
 autoencoder.summary()
 
